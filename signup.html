@@ -29,8 +29,8 @@
       justify-content: space-between;
     }
     .logo img {
-    height: 80px;
-    width: 120px; /* Adjust width as needed */
+      height: 80px;
+      width: 120px;
     }
     .menu {
       margin-left: 20px;
@@ -57,7 +57,6 @@
       border-radius: 8px;
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     }
-    
     label {
       display: block;
       margin-bottom: 5px;
@@ -73,6 +72,20 @@
       background-color: #c6c6af;
       color: #333;
       font-size: 14px;
+    }
+    .password-container {
+      display: flex;
+      align-items: center;
+    }
+    .show-password {
+      padding: 6px 8px;
+      font-size: 12px;
+      background-color: #555;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      margin-left: 5px;
+      border-radius: 4px;
     }
     .sign-up-btn {
       width: 100%;
@@ -94,12 +107,14 @@
   <!-- Header Section -->
   <header>
     <div class="logo">
-      <img src="./public/safebitestransparent.png" alt="Logo" />
+      <a href="index.html">
+        <img src="./public/safebitestransparent.png" alt="Logo" />
+      </a>
     </div>
     <div class="menu">
-      <a href="#">About Us</a>
-      <a href="#">Restaurant Details</a>
-      <a href="#">Login</a>
+      <a href="about.html">About Us</a>
+      <a href="restaurant-details.html">Restaurant Details</a>
+      <a href="login.html">Login</a>
     </div>
   </header>
 
@@ -114,11 +129,33 @@
         <input type="text" id="username" name="username" required>
         
         <label for="password">Password</label>
-        <input type="password" id="password" name="password" required>
+        <div class="password-container">
+          <input type="password" id="password" name="password" required>
+          <button type="button" class="show-password" onclick="togglePassword()">Show</button>
+        </div>
         
         <button type="submit" class="sign-up-btn">Sign Up</button>
       </form>
+      
+      <!-- Link to Login page if the user already has an account -->
+      <p>Already have an account? <a href="login.html">Log in here</a></p>
     </div>
   </div>
+
+  <!-- JavaScript for password toggle -->
+  <script>
+    function togglePassword() {
+      const passwordInput = document.getElementById('password');
+      const showPasswordButton = document.querySelector('.show-password');
+      
+      if (passwordInput.type === 'password') {
+        passwordInput.type = 'text';
+        showPasswordButton.textContent = 'Hide';
+      } else {
+        passwordInput.type = 'password';
+        showPasswordButton.textContent = 'Show';
+      }
+    }
+  </script>
 </body>
 </html>

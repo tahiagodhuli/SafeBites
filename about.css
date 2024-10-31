@@ -52,36 +52,4 @@ main {
 
 .about-section h1 {
     color: #333;
-    font-size: 1.5em;
-    margin-bottom: 10px;
-}
-
-.about-section p {
-    font-size: 1em;
-    line-height: 1.5;
-    margin-bottom: 20px;
-}
-
-.contact-info {
-    margin-top: 20px;
-}
-
-.contact-info h2 {
-    font-size: 1.2em;
-    color: #333;
-    margin-bottom: 10px;
-}
-
-.contact-info ul {
-    list-style-type: none;
-    padding: 0;
-}
-
-.contact-info a {
-    color: #4a4a32;
-    text-decoration: none;
-}
-
-.contact-info a:hover {
-    text-decoration: underline;
-}
+} 
