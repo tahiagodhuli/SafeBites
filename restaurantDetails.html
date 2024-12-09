@@ -7,9 +7,6 @@
     <title>SafeBites Restaurant</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Inter&display=swap" rel="stylesheet">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
         href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Inter&family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&display=swap"
         rel="stylesheet">
@@ -27,18 +24,15 @@
         <nav>
             <a href="login.html">Login</a>
             <a href="about.html">About Us</a>
-            <a href="restaurantDetails.html">Restaurant Details</a> 
+            <a href="restaurantDetails.html">Restaurant Details</a>
         </nav>
     </header>
     <div class="container">
 
-        <!-- restaurant info -->
-        <section class="restaurant-info">
-            <h2 class="restaurant-title">Restaurant Name</h2>
-            <p class="restaurantdetails">Restaurant Address: 12-34 Example St, New York, 12345</p>
-            <p class="restaurantdetails">Restaurant Phone Number: (123)-456-7890</p>
-            <p>Restaurant Website: (if available, provide link, or N/A)</p>
-            <p>Allergy-Free Options: (list allergies the restaurant has options for)</p>
+        <!-- Dynamic restaurant info -->
+        <section id="restaurant-list" class="restaurant-info">
+            <h2 class="restaurant-title">Our SafeBites Restaurants</h2>
+            <p>Loading restaurant data...</p>
         </section>
 
         <!-- User Reviews Section -->
@@ -50,6 +44,41 @@
             </div>
         </section>
     </div>
+
+    <!-- JavaScript to Fetch and Display Restaurant Data -->
+    <script>
+        async function fetchRestaurants() {
+            try {
+                const response = await fetch('http://localhost:3000/restaurants'); // Fetch data from API
+                const data = await response.json(); // Parse JSON response
+    
+                const container = document.getElementById('restaurant-list'); // Select the container
+                container.innerHTML = ''; // Clear loading message
+    
+                // Loop through the restaurants and create HTML for each
+                data.forEach(restaurant => {
+                    const restaurantBox = document.createElement('div');
+                    restaurantBox.className = 'restaurant-details'; // Add class for styling
+    
+                    restaurantBox.innerHTML = `
+                        <h3>${restaurant.name}</h3>
+                        <p><strong>Address:</strong> ${restaurant.address}</p>
+                        <p><strong>Phone:</strong> ${restaurant.phone}</p>
+                        <p><strong>Website:</strong> <a href="${restaurant.website}" target="_blank">Visit Website</a></p>
+                        <p><strong>Allergy-Free Options:</strong> ${restaurant.allergySafeOptions.join(', ')}</p>
+                    `;
+                    container.appendChild(restaurantBox);
+                });
+            } catch (error) {
+                console.error('Error fetching restaurant data:', error);
+                const container = document.getElementById('restaurant-list');
+                container.innerHTML = '<p>Failed to load restaurant data. Please try again later.</p>';
+            }
+        }
+    
+        // Fetch restaurant data when the page loads
+        fetchRestaurants();
+    </script>
 </body>
 
 </html>
