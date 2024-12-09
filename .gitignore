@@ -1,1 +1,4 @@
+[submodule "SafeBites"]
+  path = SafeBites
+  url = https://github.com/your-username/SafeBites.git
 .DS_Store
