@@ -1,10 +1,10 @@
 const express = require('express');
-const bodyParser = require('body-parser');
 const cors = require('cors');
 
 const app = express(); // Create the Express app
-app.use(bodyParser.json());
 app.use(cors()); // Enable CORS
+app.use(express.json()); // Enable JSON parsing
+
 
 // Sample restaurant data
 const restaurants = [
@@ -192,6 +192,5 @@ app.get('/restaurants', (req, res) => {
     res.json(restaurants);
 });
 
-// Start the server
-const PORT = 3000;
-app.listen(PORT, () => console.log(`API running on http://localhost:${PORT}`));
+// Export the app for Vercel
+module.exports = app;
