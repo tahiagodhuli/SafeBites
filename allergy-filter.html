@@ -145,7 +145,8 @@
                 document.querySelector('main').innerHTML = `<p>Loading results for ${selectedAllergy}...</p>`;
 
                 try {
-                    const response = await fetch('http://localhost:3000/restaurants');
+                    // Updated fetch URL to use the Vercel API endpoint
+                    const response = await fetch('https://safe-bites.vercel.app/restaurants');
                     if (!response.ok) throw new Error('Failed to fetch data');
                     const restaurants = await response.json();
 

@@ -1,11 +1,10 @@
 const express = require('express');
-const bodyParser = require('body-parser');
 const cors = require('cors');
 const serverless = require('serverless-http');
 
 const app = express(); // Create the Express app
-app.use(bodyParser.json());
 app.use(cors()); // Enable CORS
+app.use(express.json()); // Enable JSON parsing
 
 // Sample restaurant data
 const restaurants = [
@@ -186,15 +185,7 @@ const restaurants = [
     }
 ];
 
-
-
 // Endpoint to get all restaurants
-app.get('/restaurants', (req, res) => 
-{
-    res.json(restaurants);
-});
-
-// Define your routes
 app.get('/restaurants', (req, res) => {
     res.json(restaurants);
 });
