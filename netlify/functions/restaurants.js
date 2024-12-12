@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
+const serverless = require('serverless-http');
 
 const app = express(); // Create the Express app
 app.use(bodyParser.json());
@@ -188,10 +189,15 @@ const restaurants = [
 
 
 // Endpoint to get all restaurants
+app.get('/restaurants', (req, res) => 
+{
+    res.json(restaurants);
+});
+
+// Define your routes
 app.get('/restaurants', (req, res) => {
     res.json(restaurants);
 });
 
-// Start the server
-const PORT = 3000;
-app.listen(PORT, () => console.log(`API running on http://localhost:${PORT}`));
+// Export the app as a Netlify function
+module.exports.handler = serverless(app);
