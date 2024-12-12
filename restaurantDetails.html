@@ -27,6 +27,7 @@
             <a href="restaurantDetails.html">Restaurant Details</a>
         </nav>
     </header>
+
     <div class="container">
 
         <!-- Dynamic restaurant info -->
@@ -49,17 +50,18 @@
     <script>
         async function fetchRestaurants() {
             try {
-                const response = await fetch('http://localhost:3000/restaurants'); // Fetch data from API
+                // Fetch data from the Netlify API endpoint
+                const response = await fetch('https://safebites.netlify.app/.netlify/functions/restaurants'); 
                 const data = await response.json(); // Parse JSON response
-    
+
                 const container = document.getElementById('restaurant-list'); // Select the container
                 container.innerHTML = ''; // Clear loading message
-    
+
                 // Loop through the restaurants and create HTML for each
                 data.forEach(restaurant => {
                     const restaurantBox = document.createElement('div');
                     restaurantBox.className = 'restaurant-details'; // Add class for styling
-    
+
                     restaurantBox.innerHTML = `
                         <h3>${restaurant.name}</h3>
                         <p><strong>Address:</strong> ${restaurant.address}</p>
@@ -75,7 +77,7 @@
                 container.innerHTML = '<p>Failed to load restaurant data. Please try again later.</p>';
             }
         }
-    
+
         // Fetch restaurant data when the page loads
         fetchRestaurants();
     </script>
