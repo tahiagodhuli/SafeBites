@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SafeBites Sign Up</title>
+  <style>
+    /* Base Styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+    body {
+      background-color: #f3f1eb;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    
+    /* Header Styles */
+    header {
+      width: 100%;
+      padding: 0.5%;
+      background-color: #d3d8c8;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .logo img {
+      height: 60px;
+      width: 80px;
+    }
+    .menu {
+      margin-left: 20px;
+    }
+    .menu a {
+      color: #666;
+      margin: 0 15px;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 18px;
+      transition: color 0.3s;
+    }
+    .menu a:hover {
+      color: #8B0000;
+    }
+
+    /* Sign-Up Form Styles */
+    .container {
+      display: flex;
+      justify-content: center;
+      width: 100%;
+      margin-top: 50px;
+    }
+    .signup-container {
+      width: 350px;
+      text-align: center;
+      background-color: #d3d8c8;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+    label {
+      display: block;
+      margin-bottom: 5px;
+      font-size: 14px;
+      color: #505335;
+    }
+    input[type="text"], input[type="password"], input[type="email"] {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: none;
+      border-radius: 4px;
+      background-color: #c6c6af;
+      color: #333;
+      font-size: 14px;
+    }
+    .password-container {
+      display: flex;
+      align-items: center;
+    }
+    .show-password {
+      padding: 6px 8px;
+      font-size: 12px;
+      background-color: #555;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      margin-left: 5px;
+      border-radius: 4px;
+    }
+    .sign-up-btn {
+      width: 100%;
+      padding: 10px;
+      background-color: #505335;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      font-size: 16px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+    .sign-up-btn:hover {
+      background-color: #3b3d29;
+    }
+  </style>
+</head>
+<body>
+  <!-- Header Section -->
+  <header>
+    <div class="logo">
+      <a href="index.html">
+        <img src="updated logo 2.png" alt="Logo" />
+      </a>
+    </div>
+    <div class="menu">
+      <a href="about.html">About Us</a>
+      <a href="restaurantDetails.html">Restaurant Details</a>
+      <a href="login.html">Login</a>
+    </div>
+  </header>
+
+  <!-- Sign-Up Form Section -->
+  <div class="container">
+    <div class="signup-container">
+      <form id="signupForm">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required />
+      
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required />
+      
+        <button type="submit">Sign Up</button>
+      </form>
+      <!-- Link to Login page if the user already has an account -->
+      <p>Already have an account? <a href="login.html">Log in here</a></p>
+    </div>
+  </div>
+
+  <!-- JavaScript for password toggle -->
+  <script>
+    function togglePassword() {
+      const passwordInput = document.getElementById('password');
+      const showPasswordButton = document.querySelector('.show-password');
+      
+      if (passwordInput.type === 'password') {
+        passwordInput.type = 'text';
+        showPasswordButton.textContent = 'Hide';
+      } else {
+        passwordInput.type = 'password';
+        showPasswordButton.textContent = 'Show';
+      }
+    }
+  </script>
+
+<script>
+  document.getElementById('signupForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+  
+    const username = document.getElementById('username').value;
+    const password = document.getElementById('password').value;
+  
+    const response = await fetch('/signup', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ username, password }),
+    });
+  
+    const result = await response.json();
+    if (response.ok) {
+      alert(result.message); // Success message
+    } else {
+      alert(`Error: ${result.message}`); // Display error
+    }
+  });
+  </script>
+</body>
+</html>
