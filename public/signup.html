@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SafeBites Sign Up</title>
+  <title>Sign Up</title>
   <style>
-    /* Base Styles */
+    /* Basic styles for the sign-up form */
     * {
       margin: 0;
       padding: 0;
@@ -15,25 +15,28 @@
     body {
       background-color: #f3f1eb;
       display: flex;
-      flex-direction: column;
+      justify-content: center;
       align-items: center;
+      height: 100vh;
     }
-    
     /* Header Styles */
     header {
       width: 100%;
-      padding: 0.5%;
+      padding: 1%;
       background-color: #d3d8c8;
       display: flex;
       align-items: center;
       justify-content: space-between;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     }
     .logo img {
       height: 60px;
       width: 80px;
-    }
-    .menu {
-      margin-left: 20px;
     }
     .menu a {
       color: #666;
@@ -46,136 +49,116 @@
     .menu a:hover {
       color: #8B0000;
     }
-
-    /* Sign-Up Form Styles */
-    .container {
+    /* Layout for header and form side by side */
+    .form-container {
       display: flex;
       justify-content: center;
+      align-items: flex-start;
+      margin-top: 100px; /* Adjust for header height */
       width: 100%;
-      margin-top: 50px;
+      max-width: 1200px;
     }
-    .signup-container {
-      width: 350px;
-      text-align: center;
+    .container {
       background-color: #d3d8c8;
       padding: 20px;
       border-radius: 8px;
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      width: 300px;
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
     }
     label {
       display: block;
       margin-bottom: 5px;
-      font-size: 14px;
-      color: #505335;
     }
-    input[type="text"], input[type="password"], input[type="email"] {
+    input[type="email"], input[type="text"], input[type="password"] {
       width: 100%;
       padding: 10px;
       margin-bottom: 15px;
-      border: none;
+      border: 1px solid #c6c6af;
       border-radius: 4px;
-      background-color: #c6c6af;
-      color: #333;
-      font-size: 14px;
+      background-color: #f9f9f6;
     }
-    .password-container {
-      display: flex;
-      align-items: center;
-    }
-    .show-password {
-      padding: 6px 8px;
-      font-size: 12px;
-      background-color: #555;
-      color: #fff;
-      border: none;
-      cursor: pointer;
-      margin-left: 5px;
-      border-radius: 4px;
-    }
-    .sign-up-btn {
+    button {
       width: 100%;
       padding: 10px;
       background-color: #505335;
       color: #fff;
       border: none;
       border-radius: 4px;
-      font-size: 16px;
       cursor: pointer;
-      margin-top: 10px;
     }
-    .sign-up-btn:hover {
+    button:hover {
       background-color: #3b3d29;
+    }
+    p {
+      text-align: center;
+      margin-top: 15px;
+    }
+    a {
+      color: #8B0000;
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
     }
   </style>
 </head>
 <body>
-  <!-- Header Section -->
-  <header>
-    <div class="logo">
-      <a href="index.html">
-        <img src="updated logo 2.png" alt="Logo" />
-      </a>
-    </div>
-    <div class="menu">
-      <a href="about.html">About Us</a>
-      <a href="restaurantDetails.html">Restaurant Details</a>
-      <a href="login.html">Login</a>
-    </div>
-  </header>
-
-  <!-- Sign-Up Form Section -->
+<header>
+  <div class="logo">
+    <a href="index.html">
+      <img src="updated logo 2.png" alt="Logo" />
+    </a>
+  </div>
+  <div class="menu">
+    <a href="about.html">About Us</a>
+    <a href="restaurantDetails.html">Restaurant Details</a>
+    <a href="login.html">Login</a>
+  </div>
+</header>
   <div class="container">
-    <div class="signup-container">
-      <form id="signupForm">
-        <label for="username">Username:</label>
-        <input type="text" id="username" name="username" required />
-      
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password" required />
-      
-        <button type="submit">Sign Up</button>
-      </form>
-      <!-- Link to Login page if the user already has an account -->
-      <p>Already have an account? <a href="login.html">Log in here</a></p>
-    </div>
+    <h2>Sign Up</h2>
+    <form id="signupForm">
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" placeholder="Enter your email" required />
+
+      <label for="username">Username:</label>
+      <input type="text" id="username" name="username" placeholder="Enter your username" required />
+
+      <label for="password">Password:</label>
+      <input type="password" id="password" name="password" placeholder="Enter your password" required />
+
+      <button type="submit">Sign Up</button>
+    </form>
+    <p>Already have an account? <a href="login.html">Log in here</a></p>
   </div>
 
-  <!-- JavaScript for password toggle -->
   <script>
-    function togglePassword() {
-      const passwordInput = document.getElementById('password');
-      const showPasswordButton = document.querySelector('.show-password');
-      
-      if (passwordInput.type === 'password') {
-        passwordInput.type = 'text';
-        showPasswordButton.textContent = 'Hide';
-      } else {
-        passwordInput.type = 'password';
-        showPasswordButton.textContent = 'Show';
-      }
-    }
-  </script>
+    document.getElementById('signupForm').addEventListener('submit', (e) => {
+      e.preventDefault();
 
-<script>
-  document.getElementById('signupForm').addEventListener('submit', async (e) => {
-    e.preventDefault();
-  
-    const username = document.getElementById('username').value;
-    const password = document.getElementById('password').value;
-  
-    const response = await fetch('/signup', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ username, password }),
+      const email = document.getElementById('email').value;
+      const username = document.getElementById('username').value;
+      const password = document.getElementById('password').value;
+
+      // Check if the email already exists in localStorage
+      const users = JSON.parse(localStorage.getItem('users')) || [];
+
+      if (users.some(user => user.email === email)) {
+        alert('An account with this email already exists!');
+        return;
+      }
+
+      // Add the new user to the array and save it to localStorage
+      users.push({ email, username, password });
+      localStorage.setItem('users', JSON.stringify(users));
+
+      alert('Sign up successful!');
+      window.location.href = 'index.html';  // Redirect to homepage (index.html)
     });
-  
-    const result = await response.json();
-    if (response.ok) {
-      alert(result.message); // Success message
-    } else {
-      alert(`Error: ${result.message}`); // Display error
-    }
-  });
   </script>
 </body>
 </html>
