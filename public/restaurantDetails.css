@@ -21,7 +21,7 @@ p {
     margin: 20px 0;
 }
         /* Navigation styling */
-nav a {
+nav a, #navbar a, #navbar, .logout {
     color: #666;
     text-decoration: none;
     margin: 0 15px;
@@ -30,7 +30,7 @@ nav a {
     transition: color 0.3s;
     }
 
-nav a:hover {
+nav a:hover, #navbar a:hover, #navbar:hover {
     color: #8B0000;
 }
 
@@ -153,4 +153,17 @@ section.restaurant-info p {
     font-family: "Source Serif 4", serif;
     color: #414907;
     font-weight: 400;
+}
+.logout{
+    background-color: #436656;
+    padding: 10px;
+    border-radius:  15px;
+    border: none;
+    color: #eff8d6;
+    transition: all 0.3s ease;
+}
+.logout:hover{
+    background-color: #eff8d6;
+    color:#414907;
+    cursor:pointer;
 }

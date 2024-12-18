@@ -11,15 +11,18 @@
         <div class="logo">
             <a href="index.html"><img src="updated logo 2.png" alt="Logo" /></a>
         </div>
-        <nav>
+        <!-- <nav>
             <a href="about.html">About Us</a>
             <a href="restaurantDetails.html">Restaurant Details</a> 
             <a href="login.html">Login</a>
+        </nav> -->
+        <nav id="navbar">
+            <!-- Links will be dynamically updated here -->
         </nav>
     </header>
     <main>
         <section class="about-section">
-            <h1>About us</h1>
+            <h1>About Us</h1>
             <p>
                 The purpose of SafeBites is to provide delicious, worry-free meals that prioritize food safety and quality. We are committed to ensuring that everyone, regardless of dietary restrictions or allergies, can enjoy flavorful dishes with complete peace of mind. By focusing on transparency, carefully sourced ingredients, and rigorous safety protocols, SafeBites aims to create a safe and inclusive food experience for all.
             </p>
@@ -34,5 +37,42 @@
             </div>
         </section>
     </main>
+    <script>
+            // Function to update navbar dynamically
+            function updateNavbar() {
+            const navbar = document.getElementById('navbar');
+            const token = localStorage.getItem('token');
+            const username = localStorage.getItem('username');
+
+            if (token && username) {
+                    // User is logged in
+                navbar.innerHTML = 
+                    `
+                        <a href="about.html">About Us</a>
+                        <a href="restaurantDetails.html">Restaurant Details</a>
+                        <a class="user-info">Hello, ${username}</a>
+                        <button class="logout" onclick="logout()">Logout</button>
+                    `;
+                } else {
+                    // User is not logged in
+                    navbar.innerHTML = `
+                        <a href="login.html">Login</a>
+                        <a href="about.html">About Us</a>
+                        <a href="restaurantDetails.html">Restaurant Details</a>
+                    `;
+                }
+            }
+
+            // Logout function
+            function logout() {
+                localStorage.removeItem('token');
+                localStorage.removeItem('username');
+                alert('You have been logged out.');
+                updateNavbar();
+                window.location.href = 'index.html'; // Redirect to homepage
+            }
+            // Initialize navbar on page load
+            updateNavbar();
+    </script>
 </body>
 </html>
