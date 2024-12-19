@@ -184,6 +184,55 @@
                 }
             });
         });
-    </script>
+    </script> 
+    <!-- Add the new script here -->
+     <script>
+    // Get the allergy from the query parameter
+    const params = new URLSearchParams(window.location.search);
+    const allergyType = params.get("allergy");
+
+    if (allergyType) {
+        document.querySelector("main").innerHTML = `<p>Loading results for ${allergyType}...</p>`;
+
+        fetch("https://safe-bites.vercel.app/restaurants")
+            .then(response => response.json())
+            .then(data => {
+                const filteredRestaurants = data.filter(restaurant =>
+                    restaurant.allergySafeOptions.includes(allergyType)
+                );
+
+                if (filteredRestaurants.length) {
+                    const resultsHtml = filteredRestaurants.map(restaurant => `
+                        <div class="allergy-box" onclick="viewRestaurant('${restaurant.id}')">
+                            <strong>${restaurant.name}</strong><br>
+                            Address: ${restaurant.address}<br>
+                            Phone: ${restaurant.phone}
+                        </div>
+                    `).join("");
+                    document.querySelector("main").innerHTML = `
+                        <h2>Restaurants Safe for ${allergyType}</h2>
+                        <div class="allergy-container">${resultsHtml}</div>
+                    `;
+                } else {
+                    document.querySelector("main").innerHTML = `
+                        <p>No restaurants found for ${allergyType}.</p>
+                        <button onclick="window.location.href='index.html'">Go Back</button>
+                    `;
+                }
+            })
+            .catch(err => {
+                console.error("Error fetching restaurants:", err);
+                document.querySelector("main").innerHTML = `
+                    <p>Failed to load data. Please try again later.</p>
+                `;
+            });
+    }
+
+    // Redirect to restaurant details
+    function viewRestaurant(restaurantId) {
+        window.location.href = `restaurantDetails.html?id=${restaurantId}`;
+    }
+</script>
+
 </body>
 </html>
