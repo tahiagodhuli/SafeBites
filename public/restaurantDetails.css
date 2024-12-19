@@ -1,8 +1,48 @@
+/* Global Styling */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #F4EEE8;
+    color: #333;
+}
+
+/* Header Styling */
+header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 20px;
+    background-color: #d3d8c8;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+}
+
+.logo img {
+    height: 60px;
+    width: 80px;
+}
+
+nav a, #navbar a, #navbar, .logout {
+    color: #666;
+    text-decoration: none;
+    margin: 0 15px;
+    font-weight: bold;
+    font-size: 18px;
+    transition: color 0.3s;
+}
+
+nav a:hover, #navbar a:hover, #navbar:hover {
+    color: #8B0000;
+}
+
+/* Main Section Styling */
 main {
     margin-top: 100px;
     padding: 20px;
@@ -20,43 +60,8 @@ p {
     color: #666;
     margin: 20px 0;
 }
-        /* Navigation styling */
-nav a, #navbar a, #navbar, .logout {
-    color: #666;
-    text-decoration: none;
-    margin: 0 15px;
-    font-weight: bold;
-    font-size: 18px;
-    transition: color 0.3s;
-    }
 
-nav a:hover, #navbar a:hover, #navbar:hover {
-    color: #8B0000;
-}
-
-/* Header styling */
-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 10px 20px;
-    background-color: #d3d8c8;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-    width: 100%;
-    top: 0;
-    z-index: 1000;
-}
-        
-/* Logo styling */
-.logo img {
-    height: 60px;
-    width: 80px;
-    }
-body {
-    font-family: Arial, sans-serif;
-    background-color: #F4EEE8;
-}
-
+/* Container Styling */
 .container {
     width: 80%;
     margin: 20px auto;
@@ -65,38 +70,9 @@ body {
     border-radius: 8px;
     box-shadow: 0.1rem 0.3rem 0.2rem rgba(0, 0, 0, 0.3);
 }
-/* 
-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #C9CDBA;
-    padding: 0.5%;
-} */
 
-/* .logo img {
-    max-width: 15vw;
-    max-height: 15vh;
-} */
-.menu {
-    display: flex; /* makes sure buttons are aligned horizontally */
-    gap: 10px;
-}
-
-.menu .btn {
-    font-family:"Source Serif 4", serif;
-    background-color: #a63434;
-    color: white;
-    font-size: 1.5em;
-    border: 5% #722020;
-    padding: 10px 20px;
-    font-weight: 600;
-    border-radius: 5px;
-    cursor: pointer;
-    box-shadow: 0.1rem 0.3rem 0.2rem rgba(0, 0, 0, 0.3);
-    background: linear-gradient(135deg, #a63434, #d46a6a);
-}
-section.restaurant-info h2{
+/* Restaurant Info Section */
+section.restaurant-info h2 {
     font-family: "Abril Fatface", serif;
     font-optical-sizing: auto;
     font-weight: 400;
@@ -108,6 +84,7 @@ section.restaurant-info h2{
     text-decoration-thickness: 0.3vw;
     text-shadow: 0.1em 0.1em 0.2em rgba(0, 0, 0, 0.3);
 }
+
 section.restaurant-info p {
     font-family: "Source Serif 4", serif;
     font-optical-sizing: auto;
@@ -117,11 +94,14 @@ section.restaurant-info p {
     font-size: 1.2em;
     margin: 1% 5%;
 }
-.reviews{
+
+/* Reviews Section */
+.reviews {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
+
 .reviews h3 {
     font-family: "Abril Fatface", serif;
     font-weight: 400;
@@ -142,28 +122,99 @@ section.restaurant-info p {
     margin: 5px 0;
 }
 
-.user-review-title{
+.user-review-title {
     font-family: "Abril Fatface", serif;
     color: #414907;
     font-weight: 400;
-
 }
 
-.user-review-content{
+.user-review-content {
     font-family: "Source Serif 4", serif;
     color: #414907;
     font-weight: 400;
 }
-.logout{
+
+/* Logout Button Styling */
+.logout {
     background-color: #436656;
     padding: 10px;
-    border-radius:  15px;
+    border-radius: 15px;
     border: none;
     color: #eff8d6;
     transition: all 0.3s ease;
 }
-.logout:hover{
+
+.logout:hover {
     background-color: #eff8d6;
-    color:#414907;
-    cursor:pointer;
+    color: #414907;
+    cursor: pointer;
+}
+
+/* Keyword Filter Section */
+#keyword-filter {
+    text-align: center;
+    margin: 30px 0;
+}
+
+#keyword-filter h3 {
+    font-family: 'Abril Fatface', serif;
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+    color: #4a4a32;
+}
+
+#keyword-filter .keywords {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+}
+
+#keyword-filter .keywords button {
+    font-family: 'Inter', sans-serif;
+    padding: 12px 18px;
+    font-size: 1rem;
+    border: 2px solid #4a4a32;
+    border-radius: 8px;
+    background-color: #d3d8c8;
+    color: #333;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+#keyword-filter .keywords button:hover {
+    background-color: #8B0000;
+    color: white;
+    border-color: #8B0000;
+}
+
+#keyword-filter .keywords button:active {
+    transform: scale(0.95);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* Menu Buttons */
+.menu {
+    display: flex;
+    gap: 10px;
+}
+
+.menu .btn {
+    font-family: "Source Serif 4", serif;
+    background-color: #a63434;
+    color: white;
+    font-size: 1.5em;
+    border: none;
+    padding: 10px 20px;
+    font-weight: 600;
+    border-radius: 5px;
+    cursor: pointer;
+    box-shadow: 0.1rem 0.3rem 0.2rem rgba(0, 0, 0, 0.3);
+    background: linear-gradient(135deg, #a63434, #d46a6a);
+}
+
+.menu .btn:hover {
+    background-color: #d46a6a;
+    box-shadow: 0.1rem 0.4rem 0.3rem rgba(0, 0, 0, 0.4);
 }
