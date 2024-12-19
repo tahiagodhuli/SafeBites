@@ -1,152 +1,117 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Restaurant Details</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f5f7f2;
-            color: #333;
-        }
-
-        header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 10px 20px;
-            background-color: #d3d8c8;
-            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-        }
-
-        .logo img {
-            height: 60px;
-            width: 80px;
-        }
-
-        nav a {
-            color: #666;
-            text-decoration: none;
-            margin: 0 15px;
-            font-weight: bold;
-            font-size: 18px;
-            transition: color 0.3s;
-        }
-
-        nav a:hover {
-            color: #8B0000;
-        }
-
-        main {
-            margin-top: 100px;
-            padding: 20px;
-            text-align: center;
-        }
-
-        .restaurant-details {
-            margin: 20px auto;
-            padding: 20px;
-            background-color: white;
-            border-radius: 12px;
-            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-            text-align: left;
-            max-width: 800px;
-        }
-
-        .restaurant-details h3 {
-            margin-bottom: 10px;
-            font-size: 1.5em;
-        }
-
-        .restaurant-details p {
-            margin: 5px 0;
-        }
-    </style>
+    <title>SafeBites Restaurant</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Inter&family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="restaurantDetails.css">
 </head>
+
 <body>
-    <header>
+    <!-- Navbar -->
+    <header id="header">
         <div class="logo">
             <a href="index.html">
                 <img src="updated logo 2.png" alt="Logo" />
             </a>
         </div>
-        <nav>
-            <a href="login.html">Login</a>
-            <a href="index.html">Home</a>
-            <a href="about.html">About Us</a>
+        <nav id="navbar">
+            <!-- Links will be dynamically updated here -->
         </nav>
     </header>
 
-    <main id="restaurant-list">
-        <h1>Restaurants</h1>
-        <p>Loading restaurants...</p>
-    </main>
+    <div class="container">
+        <!-- Dynamic restaurant info -->
+        <section id="restaurant-list" class="restaurant-info">
+            <h2 class="restaurant-title">Our SafeBites Restaurants</h2>
+            <p>Loading restaurant data...</p>
+        </section>
 
+    </div>
+
+    <!-- JavaScript to Fetch and Display Restaurant Data -->
+    <script src="restaurantDetails.js"></script>
+    <script src="updateNavbar.js"></script>
     <script>
-        // Get the allergy type from the query parameter (if present)
-        const params = new URLSearchParams(window.location.search);
-        const allergyType = params.get("allergy");
+        async function fetchRestaurants() {
+            try {
+                const response = await fetch('/.netlify/functions/restaurants');
+                const data = await response.json();
 
-        console.log("Selected allergy:", allergyType); // Debugging
+                const container = document.getElementById('restaurant-list');
+                container.innerHTML = ''; // Clear loading message
 
-        // Fetch restaurant data
-        fetch("https://safe-bites.vercel.app/restaurants")
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Failed to fetch restaurant data');
-                }
-                return response.json();
-            })
-            .then(data => {
-                console.log("Fetched restaurant data:", data); // Debugging
-                let filteredRestaurants;
+                data.forEach(restaurant => {
+                    const restaurantBox = document.createElement('div');
+                    restaurantBox.className = 'restaurant-details';
 
-                if (allergyType) {
-                    // Filter restaurants if allergyType is provided
-                    filteredRestaurants = data.filter(restaurant =>
-                        restaurant.allergySafeOptions.includes(allergyType)
-                    );
-                } else {
-                    // Show all restaurants if no allergyType is selected
-                    filteredRestaurants = data;
-                }
-
-                console.log("Filtered restaurants:", filteredRestaurants); // Debugging
-
-                // Display restaurants
-                if (filteredRestaurants.length > 0) {
-                    const resultsHtml = filteredRestaurants.map(restaurant => `
-                        <div class="restaurant-details">
-                            <h3>${restaurant.name}</h3>
-                            <p><strong>Address:</strong> ${restaurant.address}</p>
-                            <p><strong>Phone:</strong> ${restaurant.phone}</p>
-                            <p><strong>Website:</strong> <a href="${restaurant.website}" target="_blank">Visit Website</a></p>
-                            <p><strong>Allergy-Free Options:</strong> ${restaurant.allergySafeOptions.join(", ")}</p>
-                        </div>
-                    `).join("");
-
-                    document.querySelector("main").innerHTML = `
-                        <h2>${allergyType ? `Restaurants Safe for ${allergyType}` : "All Restaurants"}</h2>
-                        <div>${resultsHtml}</div>
+                    restaurantBox.innerHTML = `
+                        <h3>${restaurant.name}</h3>
+                        <p><strong>Address:</strong> ${restaurant.address}</p>
+                        <p><strong>Phone:</strong> ${restaurant.phone}</p>
+                        <p><strong>Website:</strong> <a href="${restaurant.website}" target="_blank">Visit Website</a></p>
+                        <p><strong>Allergy-Free Options:</strong> ${restaurant.allergySafeOptions.join(', ')}</p>
+                        <button onclick="openReviewForm(${restaurant.id})">Leave a Review</button>
                     `;
-                } else {
-                    document.querySelector("main").innerHTML = `
-                        <p>${allergyType ? `No restaurants found for ${allergyType}.` : "No restaurants found."}</p>
-                        <button onclick="window.history.back()">Go Back</button>
-                    `;
-                }
-            })
-            .catch(error => {
-                console.error("Error fetching restaurant data:", error);
-                document.querySelector("main").innerHTML = `
-                    <p>Failed to load data. Please try again later.</p>
-                `;
-            });
+
+                    container.appendChild(restaurantBox);
+                });
+
+            } catch (error) {
+                console.error('Error fetching restaurant data:', error);
+                const container = document.getElementById('restaurant-list');
+                container.innerHTML = '<p>Failed to load restaurant data. Please try again later.</p>';
+            }
+        }
+
+        fetchRestaurants();
     </script>
+    <script> 
+        // Get the restaurant ID from the query parameter
+        const params = new URLSearchParams(window.location.search);
+        const restaurantId = params.get("id");
+    
+        if (restaurantId) {
+            fetch("https://safe-bites.vercel.app/restaurants")
+                .then(response => response.json())
+                .then(data => {
+                    const restaurant = data.find(r => r.id == restaurantId);
+    
+                    if (restaurant) {
+                        document.getElementById("restaurant-list").innerHTML = `
+                            <div class="restaurant-details">
+                                <h3>${restaurant.name}</h3>
+                                <p><strong>Address:</strong> ${restaurant.address}</p>
+                                <p><strong>Phone:</strong> ${restaurant.phone}</p>
+                                <p><strong>Website:</strong> <a href="${restaurant.website}" target="_blank">Visit Website</a></p>
+                                <p><strong>Allergy-Free Options:</strong> ${restaurant.allergySafeOptions.join(", ")}</p>
+                            </div>
+                        `;
+                    } else {
+                        document.getElementById("restaurant-list").innerHTML = `
+                            <p>Restaurant not found.</p>
+                        `;
+                    }
+                })
+                .catch(err => {
+                    console.error("Error fetching restaurant details:", err);
+                    document.getElementById("restaurant-list").innerHTML = `
+                        <p>Failed to load restaurant details. Please try again later.</p>
+                    `;
+                });
+        } else {
+            document.getElementById("restaurant-list").innerHTML = `
+                <p>No restaurant selected.</p>
+            `;
+        }
+    </script>
+
 </body>
+
 </html>
