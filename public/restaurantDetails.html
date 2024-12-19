@@ -72,6 +72,47 @@
 
         fetchRestaurants();
     </script>
+    <script> 
+        // Get the restaurant ID from the query parameter
+        const params = new URLSearchParams(window.location.search);
+        const restaurantId = params.get("id");
+    
+        if (restaurantId) {
+            fetch("https://safe-bites.vercel.app/restaurants")
+                .then(response => response.json())
+                .then(data => {
+                    const restaurant = data.find(r => r.id == restaurantId);
+    
+                    if (restaurant) {
+                        document.getElementById("restaurant-list").innerHTML = `
+                            <div class="restaurant-details">
+                                <h3>${restaurant.name}</h3>
+                                <p><strong>Address:</strong> ${restaurant.address}</p>
+                                <p><strong>Phone:</strong> ${restaurant.phone}</p>
+                                <p><strong>Website:</strong> <a href="${restaurant.website}" target="_blank">Visit Website</a></p>
+                                <p><strong>Allergy-Free Options:</strong> ${restaurant.allergySafeOptions.join(", ")}</p>
+                            </div>
+                        `;
+                    } else {
+                        document.getElementById("restaurant-list").innerHTML = `
+                            <p>Restaurant not found.</p>
+                        `;
+                    }
+                })
+                .catch(err => {
+                    console.error("Error fetching restaurant details:", err);
+                    document.getElementById("restaurant-list").innerHTML = `
+                        <p>Failed to load restaurant details. Please try again later.</p>
+                    `;
+                });
+        } else {
+            document.getElementById("restaurant-list").innerHTML = `
+                <p>No restaurant selected.</p>
+            `;
+        }
+    </script>
+
 </body>
 
 </html>
+
