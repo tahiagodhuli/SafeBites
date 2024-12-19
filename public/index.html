@@ -303,7 +303,20 @@
                     });
                 });
             });
+        </script>  
+        <!-- Add the new script here -->
+        <script>
+            document.querySelector(".search-container button").addEventListener("click", () => {
+                const searchInput = document.querySelector(".search-container input").value.trim();
+                if (searchInput) {
+                    // Redirect to allergy filter with search query
+                    window.location.href = `allergy-filter.html?allergy=${encodeURIComponent(searchInput)}`;
+                } else {
+                    alert("Please enter an allergy to search!");
+                }
+            });
         </script>
+        
     </main>
 </body>
 </html>
