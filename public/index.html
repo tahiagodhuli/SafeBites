@@ -71,29 +71,6 @@
             margin: 20px 0;
         }
 
-        /* Search container styling */
-        .search-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin: 30px 0;
-        }
-
-        .search-container button {
-            padding: 12px 20px;
-            background-color: #69985c;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-
-        .search-container button:hover {
-            background-color: #557e4d;
-        }
-
         .text-boxes {
             display: flex;
             flex-wrap: wrap;
@@ -224,11 +201,6 @@
     </header>
     <main>
         <h1>Discover Allergy-Friendly Dining</h1>
-        
-        <p>Click the button below to start your journey to safe dining:</p>
-        <div class="search-container" id="searchContainer">
-            <button type="button" onclick="location.href='allergy-filter.html'">Search</button>
-        </div>
 
         <div class="text-boxes">
             <div class="text-box">
@@ -304,19 +276,6 @@
                 });
             });
         </script>  
-        <!-- Add the new script here -->
-        <script>
-            document.querySelector(".search-container button").addEventListener("click", () => {
-                const searchInput = document.querySelector(".search-container input").value.trim();
-                if (searchInput) {
-                    // Redirect to allergy filter with search query
-                    window.location.href = `allergy-filter.html?allergy=${encodeURIComponent(searchInput)}`;
-                } else {
-                    alert("Please enter an allergy to search!");
-                }
-            });
-        </script>
-        
     </main>
 </body>
 </html>
