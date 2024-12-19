@@ -146,6 +146,36 @@
   </form>
   <p>Don't have an account? <a href="signup.html">Sign up here</a></p>
 </div>
+<script>
+  document.getElementById('loginForm').addEventListener('submit', (e) => {
+    e.preventDefault();
+
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
+
+    const users = JSON.parse(localStorage.getItem('users')) || [];
+    
+    const user = users.find(user => user.email === email && user.password === password);
+
+    if (user) {
+      alert('Login successful!');
+      localStorage.setItem('isLoggedIn', 'true');  // Store login state
+      window.location.href = 'index.html';  // Redirect to homepage (index.html)
+    } else {
+      alert('Invalid email or password!');
+    }
+  });
+  document.addEventListener('DOMContentLoaded', () => {
+        const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+        const user = JSON.parse(localStorage.getItem('loggedInUser'));
+
+        if (isLoggedIn && user) {
+            alert(`Welcome back, ${user.email}!`);
+        } else {
+            window.location.href = 'login.html'; // Redirect to login page if not logged in
+        }
+    });
+</script>
 
 </body>
 </html>
